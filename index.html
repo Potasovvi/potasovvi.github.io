@@ -3,16 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Potasovvi | Web Apps & Automazioni</title>
+    <title>potasovvi | Cose che ho smanettato</title>
     <style>
         :root {
-            --bg: #0f172a;
-            --surface: #1e293b;
-            --text: #f8fafc;
-            --text-muted: #94a3b8;
-            --primary: #38bdf8;
-            --primary-hover: #7dd3fc;
-            --accent: #10b981;
+            --bg: #1c1917;
+            --surface: #292524;
+            --text: #fafaf9;
+            --text-muted: #a8a29e;
+            --primary: #fb923c;
+            --primary-hover: #fdba74;
+            --accent: #fbbf24;
+            --border: #44403c;
+            --warm-glow: rgba(251, 146, 60, 0.15);
         }
 
         * {
@@ -25,264 +27,715 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg);
             color: var(--text);
-            line-height: 1.6;
-            padding: 2rem 1rem;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        /* Header / Intro */
-        header {
-            text-align: center;
-            padding: 3rem 0;
-            border-bottom: 1px solid #334155;
-        }
-
-        .badge-dev {
-            font-family: monospace;
-            background: #2563eb;
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            display: inline-block;
-            margin-bottom: 1rem;
-        }
-
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.05em;
-        }
-
-        header h1 span {
-            color: var(--primary);
-        }
-
-        header p {
-            color: var(--text-muted);
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin: 0 auto 1.5rem auto;
-        }
-
-        /* Sezione Privacy Globale */
-        .privacy-banner {
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid var(--accent);
+            line-height: 1.7;
             padding: 1rem;
-            border-radius: 8px;
-            margin: 2rem 0;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .privacy-banner span {
-            font-size: 1.5rem;
-        }
-
-        .privacy-banner p {
-            font-size: 0.95rem;
-            color: #a7f3d0;
-        }
-
-        /* Griglia Progetti */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
-            margin: 3rem 0;
+            background-image:
+                radial-gradient(ellipse at 20% 50%, rgba(251, 146, 60, 0.06) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(251, 191, 36, 0.04) 0%, transparent 50%),
+                radial-gradient(ellipse at 60% 80%, rgba(249, 115, 22, 0.05) 0%, transparent 50%);
         }
 
         @media (min-width: 768px) {
-            .projects-grid {
-                grid-template-columns: 1fr 1fr;
+            body {
+                padding: 2rem;
+                background-attachment: fixed;
             }
         }
 
-        .card {
-            background-color: var(--surface);
-            border: 1px solid #334155;
-            border-radius: 12px;
-            padding: 1.5rem;
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes shimmer {
+            0%   { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        /* === HEADER === */
+        header {
+            padding: clamp(2rem, 5vw, 4rem) 0 clamp(1.5rem, 3vw, 2.5rem) 0;
+            border-bottom: 1px solid var(--border);
+            animation: fadeIn 0.6s ease-out 0.1s both;
             display: flex;
-            flex-direction: column;
+            align-items: flex-start;
             justify-content: space-between;
-            transition: transform 0.2s, border-color 0.2s;
+            gap: 1.5rem;
         }
 
-        .card:hover {
-            transform: translateY(-4px);
-            border-color: var(--primary);
+        .header-text {
+            flex: 1;
+            min-width: 0;
         }
 
-        .card-header h3 {
-            font-size: 1.4rem;
+        .avatar {
+            width: clamp(120px, 18vw, 170px);
+            height: clamp(120px, 18vw, 170px);
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+            border: 3px solid var(--border);
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+
+        @media (hover: hover) {
+            .avatar:hover {
+                border-color: var(--primary);
+                transform: scale(1.03);
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                flex-direction: column-reverse;
+                align-items: center;
+                text-align: center;
+            }
+            .avatar {
+                width: clamp(100px, 28vw, 140px);
+                height: clamp(100px, 28vw, 140px);
+            }
+        }
+
+        header h1 {
+            font-size: clamp(1.8rem, 5vw, 3rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
             margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent), var(--primary));
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 4s ease-in-out infinite;
         }
 
-        .card-tags {
-            font-family: monospace;
-            font-size: 0.8rem;
+        header .subtitle {
+            color: var(--text-muted);
+            font-size: clamp(0.95rem, 2vw, 1.15rem);
+        }
+
+        header .subtitle strong {
             color: var(--primary);
-            margin-bottom: 1rem;
         }
 
-        .card-body p {
+        /* === BADGES === */
+        .badge-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1.5rem 0 0;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.35rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+            cursor: default;
+            user-select: none;
+        }
+
+        @media (hover: hover) {
+            .badge:hover {
+                border-color: var(--primary);
+                color: var(--primary);
+                background: var(--warm-glow);
+                transform: translateY(-2px);
+            }
+        }
+
+        .badge.ai {
+            border-color: rgba(251, 146, 60, 0.3);
+            color: var(--primary);
+        }
+
+        .badge.heart {
+            border-color: rgba(244, 63, 94, 0.3);
+            color: #fb7185;
+        }
+
+        @media (hover: hover) {
+            .badge.heart:hover {
+                border-color: #f43f5e;
+                color: #fda4af;
+                background: rgba(244, 63, 94, 0.1);
+            }
+        }
+
+        /* === INTRO === */
+        .intro {
+            margin: clamp(1.5rem, 4vw, 3rem) 0;
+            animation: fadeIn 0.6s ease-out 0.15s both;
+        }
+
+        .intro p {
+            margin-bottom: 1rem;
+            color: #e7e5e4;
+            font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+            max-width: 65ch;
+        }
+
+        .intro .highlight {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* === WARNING === */
+        .warning-box {
+            background: rgba(251, 146, 60, 0.06);
+            border: 1px solid rgba(251, 146, 60, 0.15);
+            border-radius: 16px;
+            padding: clamp(1.2rem, 2.5vw, 1.8rem);
+            margin: clamp(1.5rem, 3vw, 2.5rem) 0;
+            transition: border-color 0.3s ease, background 0.3s ease;
+            animation: fadeIn 0.6s ease-out 0.2s both;
+        }
+
+        @media (hover: hover) {
+            .warning-box:hover {
+                border-color: rgba(251, 146, 60, 0.35);
+                background: rgba(251, 146, 60, 0.09);
+            }
+        }
+
+        .warning-box .label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+        }
+
+        .warning-box p {
             color: var(--text-muted);
             font-size: 0.95rem;
-            margin-bottom: 1.5rem;
         }
 
-        /* Bottoni / CTA */
-        .btn {
-            display: inline-block;
-            background-color: var(--primary);
-            color: #0f172a;
-            padding: 0.75rem 1.5rem;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: bold;
+        /* === SECTION TITLE === */
+        .section-title {
+            font-size: clamp(1.2rem, 3vw, 1.6rem);
+            font-weight: 700;
+            margin: clamp(2rem, 4vw, 3.5rem) 0 clamp(1rem, 2vw, 1.5rem) 0;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            animation: fadeIn 0.6s ease-out 0.25s both;
+        }
+
+        .section-title::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--border), transparent);
+        }
+
+        /* === PROJECTS HORIZONTAL SCROLL === */
+        .projects-scroll-wrap {
+            position: relative;
+            animation: fadeIn 0.6s ease-out 0.3s both;
+        }
+
+        .projects-scroll {
+            display: flex;
+            gap: 1.2rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scroll-padding: 0 0 0 0;
+            padding-bottom: 0.5rem;
+            margin: -0.5rem 0;
+        }
+
+        .projects-scroll::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .projects-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .projects-scroll::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 3px;
+        }
+
+        .projects-scroll::-webkit-scrollbar-thumb:hover {
+            background: #57534e;
+        }
+
+        .scroll-hint {
             text-align: center;
-            transition: background-color 0.2s;
-            cursor: pointer;
-        }
-
-        .btn:hover {
-            background-color: var(--primary-hover);
-        }
-
-        .btn-outline {
-            background-color: transparent;
-            border: 1px solid var(--primary);
-            color: var(--primary);
-        }
-
-        .btn-outline:hover {
-            background-color: rgba(56, 189, 248, 0.1);
-        }
-
-        /* Sezione Contatti Finale */
-        .cta-section {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            border: 1px solid #334155;
-            padding: 3rem 2rem;
-            border-radius: 12px;
-            text-align: center;
-            margin-top: 4rem;
-        }
-
-        .cta-section h2 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-        }
-
-        .cta-section p {
+            font-size: 0.75rem;
             color: var(--text-muted);
-            margin-bottom: 2rem;
+            opacity: 0.5;
+            margin-top: 0.8rem;
+            animation: fadeIn 0.6s ease-out 0.5s both;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .scroll-hint {
+                display: none;
+            }
+        }
+
+        .project {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: clamp(1.2rem, 2.5vw, 2rem);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            scroll-snap-align: start;
+            width: min(85vw, 380px);
+        }
+
+        @media (min-width: 768px) {
+            .project {
+                width: min(calc(50vw - 2.5rem), 420px);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .project {
+                width: min(calc(33vw - 2rem), 440px);
+            }
+        }
+
+        .project::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        @media (hover: hover) {
+            .project:hover {
+                border-color: rgba(251, 146, 60, 0.3);
+                transform: translateY(-4px);
+            }
+
+            .project:hover::before {
+                opacity: 1;
+            }
+        }
+
+        .project .tags {
+            font-family: monospace;
+            font-size: 0.75rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.02em;
+            opacity: 0.8;
+            line-height: 1.4;
+        }
+
+        .project .made-with {
+            font-size: 0.75rem;
+            color: var(--accent);
+            margin-bottom: 0.6rem;
+            font-weight: 600;
+            opacity: 0.9;
+        }
+
+        .project h3 {
+            font-size: clamp(1.05rem, 2vw, 1.25rem);
+            margin-bottom: 0.6rem;
+        }
+
+        .project h3 a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            min-height: 44px;
+        }
+
+        .project h3 a::after {
+            content: "→";
+            color: var(--primary);
+            transition: transform 0.2s ease;
+        }
+
+        @media (hover: hover) {
+            .project h3 a:hover {
+                color: var(--primary);
+            }
+
+            .project h3 a:hover::after {
+                transform: translateX(4px);
+            }
+        }
+
+        .project .description {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.7;
+            flex: 1;
+        }
+
+        .project .features {
+            list-style: none;
+            margin-bottom: 1.2rem;
+        }
+
+        .project .features li {
+            font-size: 0.85rem;
+            color: #d6d3d1;
+            margin-bottom: 0.35rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            min-height: 28px;
+            transition: color 0.2s ease;
+        }
+
+        .project .features li::before {
+            content: "";
+            display: inline-block;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--accent);
+            flex-shrink: 0;
+            transition: transform 0.2s ease;
+        }
+
+        @media (hover: hover) {
+            .project .features li:hover {
+                color: var(--text);
+            }
+
+            .project .features li:hover::before {
+                transform: scale(1.4);
+                background: var(--primary);
+            }
+        }
+
+        .project .demo-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 44px;
+            padding: 0.5rem 1.2rem;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            background: transparent;
+            align-self: flex-start;
+        }
+
+        @media (hover: hover) {
+            .project .demo-link:hover {
+                border-color: var(--primary);
+                color: var(--primary);
+                background: var(--warm-glow);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 20px rgba(251, 146, 60, 0.15);
+            }
+        }
+
+        @media (pointer: coarse) {
+            .project .demo-link {
+                align-self: stretch;
+                text-align: center;
+            }
+
+            .project h3 a {
+                min-height: 48px;
+            }
+        }
+
+        /* === WHY SECTION === */
+        .why-section {
+            animation: fadeIn 0.6s ease-out 0.35s both;
+        }
+
+        .why-section p {
+            color: var(--text-muted);
+            font-size: clamp(0.9rem, 1.4vw, 1rem);
+            margin-bottom: 0.8rem;
+            line-height: 1.8;
+            max-width: 65ch;
+        }
+
+        .why-section p:last-of-type {
+            color: #d6d3d1;
+        }
+
+        /* === DIVIDER === */
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+            margin: clamp(1.5rem, 3vw, 2.5rem) 0;
+        }
+
+        /* === FOOTER === */
+        .footer {
+            border-top: 1px solid var(--border);
+            padding: clamp(2rem, 4vw, 3.5rem) 0 clamp(1.5rem, 3vw, 2rem) 0;
+            margin-top: clamp(2rem, 4vw, 3.5rem);
+            text-align: center;
+            animation: fadeIn 0.6s ease-out 0.4s both;
+        }
+
+        .footer .quote {
+            color: #d6d3d1;
+            font-style: italic;
+            font-size: clamp(0.85rem, 1.5vw, 0.95rem);
+            margin-bottom: 0.3rem;
             max-width: 500px;
             margin-left: auto;
             margin-right: auto;
         }
 
-        .cta-group {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            justify-content: center;
+        .footer .quote-attribution {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            opacity: 0.6;
+            margin-bottom: 2rem;
         }
 
-        @media (min-width: 480px) {
-            .cta-group {
-                flex-direction: row;
+        .footer-links {
+            display: flex;
+            gap: 0.8rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 0.6rem 1.4rem;
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            min-width: 120px;
+        }
+
+        @media (hover: hover) {
+            .footer-links a:hover {
+                color: var(--primary);
+                border-color: var(--primary);
+                background: var(--warm-glow);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 20px rgba(251, 146, 60, 0.15);
             }
         }
 
-        footer {
-            text-align: center;
-            margin-top: 4rem;
-            color: var(--text-muted);
-            font-size: 0.85rem;
+        @media (pointer: coarse) {
+            .footer-links a {
+                flex: 1;
+            }
+        }
+
+        .copyright {
+            margin-top: 2rem;
+            font-size: 0.75rem;
+            color: #57534e;
             font-family: monospace;
         }
+
+        @media (max-width: 380px) {
+            .badge-container {
+                gap: 0.4rem;
+            }
+            .badge {
+                font-size: 0.72rem;
+                padding: 0.25rem 0.7rem;
+            }
+            .project {
+                padding: 1rem;
+            }
+            .footer-links {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+
+        @media (min-width: 381px) and (max-width: 480px) {
+            .footer-links a {
+                flex: 1;
+            }
+        }
     </style>
-    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
 
-    <div class="container">
-        
-        <!-- Header -->
-        <header>
-            <div class="badge-dev">rovarotti_hub_v1.0</div>
-            <h1>Soluzioni Web & <span>Automazioni</span></h1>
-            <p>Sblocca +10 ore a settimana nel tuo Studio Professionale. Automatizziamo la gestione dei tuoi documenti sensibili con l'IA, direttamente sul tuo Cloud.</p>
-            <a href="#contatti" class="btn">Esplora i miei progetti</a>
-        </header>
+<div class="container">
 
-        <!-- Garanzia Privacy -->
-        <div class="privacy-banner">
-            <span>🛡️</span>
-            <div>
-                <strong>Nativa sulla Privacy:</strong> Le mie applicazioni sono progettate per elaborare i dati "al volo" o direttamente sul tuo spazio Cloud (Google Drive, ecc.). Nessun documento o dato sensibile viene mai salvato o memorizzato su server terzi.
+    <header>
+        <div class="header-text">
+            <h1>Ciao, sono Andrea</h1>
+            <div class="subtitle">Su GitHub mi trovi come <strong><a href="https://github.com/potasovvi" target="_blank" style="color:var(--primary); text-decoration:none;">potasovvi</a></strong></div>
+            <div class="badge-container">
+                <span class="badge ai">🤖 AI addicted</span>
+                <span class="badge">⚡ Curioso</span>
+                <span class="badge">🔧 Smanettone</span>
+                <span class="badge heart">❤️ Timido</span>
             </div>
         </div>
+        <img src="Andrea%20Rovarotti%20Anime.png" alt="Andrea Rovarotti" class="avatar" loading="lazy">
+    </header>
 
-        <!-- Griglia Progetti -->
-        <main class="projects-grid">
-            
-            <!-- Progetto 1: PDF Wizard -->
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-tags">[ React / Node.js / Vercel ]</div>
-                    <h3><i data-lucide="file-text" style="vertical-align: middle; margin-right: 8px; color: var(--primary);"></i>Smart PDF Organizer</h3>
-                </div>
-                <div class="card-body">
-                    <p>Come il nostro sistema organizza e analizza 500 PDF in 3 minuti senza errori umani. Questa web app scansiona gli allegati ricevuti da un indirizzo email selezionato, riconosce la tipologia (Fatture, Modelli 730, Ricevute) e li organizza automaticamente in cartelle divise per mese.</p>
-                </div>
-                <!-- Sostituisci il link sotto con il tuo URL di Vercel -->
-                <a href="https://pdf-fast-steel.vercel.app/" target="_blank" class="btn btn-outline">Apri Demo Live →</a>
-            </div>
-
-            <!-- Progetto 2: Workout Timer -->
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-tags">[ React / Frontend / Vercel ]</div>
-                    <h3><i data-lucide="clock" style="vertical-align: middle; margin-right: 8px; color: var(--primary);"></i>Advanced Workout Timer</h3>
-                </div>
-                <div class="card-body">
-                    <p>Un'applicazione web ad alte prestazioni progettata per la gestione dei tempi di allenamento. Interfaccia ultra-reattiva, configurazione rapida degli intervalli e ottimizzazione per l'uso da dispositivi mobile direttamente sul campo.</p>
-                </div>
-                <!-- Sostituisci il link sotto con il tuo URL di Vercel -->
-                <a href="https://workout-timer-plum.vercel.app/" target="_blank" class="btn btn-outline">Apri Web App →</a>
-            </div>
-
-        </main>
-
-        <!-- Sezione CTA Finale -->
-        <section id="contatti" class="cta-section">
-            <h2>Hai un'idea da automatizzare o un problema da risolvere?</h2>
-            <p>Se la tua azienda perde ore in compiti ripetitivi, posso aiutarti a creare lo strumento software specifico per farlo sparire.</p>
-            
-            <div class="cta-group">
-                <!-- Sostituisci con la tua mail o link Calendly/LinkedIn -->
-                <a href="mailto:arovarotti@gmail.com" class="btn">Scrivimi via Email</a>
-                <a href="https://www.linkedin.com/in/andrea-rovarotti" target="_blank" class="btn btn-outline">Contattami su LinkedIn</a>
-                <!-- Sostituisci l'URL sotto con il link di condivisione del tuo Google Form -->
-                <a href="https://tally.so/r/QKz60Y" target="_blank" class="btn">Invia la tua richiesta →</a>
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <footer>
-            <p>© 2026 potasovvi. Built with VS Code & deployed on GitHub.</p>
-        </footer>
-
+    <div class="intro">
+        <p>
+            Sono un <span class="highlight">utente curioso</span> — di quelli che devono smontare tutto
+            per capire come funziona. Il mondo tech mi appassiona da sempre, ma
+            ultimamente sono <span class="highlight">in fissa con l'AI</span>: ci passo ore, la testó,
+            la rompo, e ogni volta scopro qualcosa di nuovo.
+        </p>
+        <p>
+            Lo ammetto: sono <span class="highlight">molto timido</span> e ho sempre avuto paura del
+            giudizio degli altri. Per anni ho tenuto tutto per me: progettini,
+            esperimenti, idee mezze abbozzate. Questo GitHub è il mio
+            <span class="highlight">primo passo per uscire dal guscio</span>.
+        </p>
     </div>
-    <script>lucide.createIcons();</script>
+
+    <div class="warning-box">
+        <div class="label">🚧 Attenzione</div>
+        <p>
+            Non troverai codice perfetto o production-ready. Troverai tanta voglia di
+            imparare, qualche esperimento riuscito, tanti fallimenti, e la sincera
+            passione di uno che si diverte a smanettare.
+        </p>
+    </div>
+
+    <div class="section-title">Progetti</div>
+
+    <div class="projects-scroll-wrap">
+        <div class="projects-scroll">
+
+            <div class="project">
+                <div class="tags">React / TypeScript / Vite / PostgreSQL / Scraping</div>
+                <div class="made-with">🧑‍💻 Fatto con OpenCode · Piano OpenCodeZen</div>
+                <h3><a href="https://carbur-up.vercel.app/" target="_blank">CarburUP</a></h3>
+                <div class="description">
+                    Monitoraggio prezzi carburanti nella provincia di Torino. Copiato
+                    <strong>di proposito</strong> da <a href="https://benzup.netlify.app/" target="_blank" style="color:var(--accent); text-decoration:underline;">BenzUP</a>
+                    perché era un progetto che mi piaceva e volevo capire come funzionava
+                    ricostruendolo da zero.
+                </div>
+                <ul class="features">
+                    <li>Scraping giornaliero con GitHub Actions</li>
+                    <li>API REST con Express e repository pattern</li>
+                    <li>Classifica prezzi aggiornata in tempo reale</li>
+                    <li>Sistema di segnalazioni per gli utenti</li>
+                </ul>
+                <a href="https://carbur-up.vercel.app/" target="_blank" class="demo-link">Apri progetto →</a>
+            </div>
+
+            <div class="project">
+                <div class="tags">React / Node.js / AI / API</div>
+                <div class="made-with">🤖 Fatto con Google AI Studio</div>
+                <h3><a href="https://pdf-fast-steel.vercel.app/" target="_blank">Smart PDF Organizer</a></h3>
+                <div class="description">
+                    Un'app che intercetta email, converte il contenuto in PDF, estrae allegati
+                    e organizza tutto in cartelle mensili. Con esportazione locale o su Google Drive.
+                </div>
+                <ul class="features">
+                    <li>Integrazione con API di posta e cloud storage</li>
+                    <li>Elaborazione semantica con modelli LLM</li>
+                    <li>Smistamento automatico in cartelle cronologiche</li>
+                </ul>
+                <a href="https://pdf-fast-steel.vercel.app/" target="_blank" class="demo-link">Apri progetto →</a>
+            </div>
+
+            <div class="project">
+                <div class="tags">React / Custom Hooks / Performance</div>
+                <div class="made-with">✨ Fatto con Gemini</div>
+                <h3><a href="https://workout-timer-plum.vercel.app/" target="_blank">Advanced Workout Timer</a></h3>
+                <div class="description">
+                    Un timer da allenamento costruito con attenzione alle performance React
+                    e a un'interfaccia mobile-first pensata per ambienti ad alto contrasto.
+                </div>
+                <ul class="features">
+                    <li>Gestione efficiente di timer e intervalli complessi</li>
+                    <li>Design ottimizzato per contesti dinamici</li>
+                    <li>Minimizzazione dei re-render per risparmiare batteria</li>
+                </ul>
+                <a href="https://workout-timer-plum.vercel.app/" target="_blank" class="demo-link">Apri progetto →</a>
+            </div>
+
+        </div>
+        <div class="scroll-hint">← Scorri per vedere tutti i progetti →</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section-title">Perché questo GitHub</div>
+    <div class="why-section">
+        <p>
+            Per mostrare a me stesso quello che so fare. Per condividere con altri
+            curiosi. Per dare un'occhiata a HR o chiunque voglia vedere cosa mi piace
+            fare nel tempo libero.
+        </p>
+        <p>Ed è un work in progress. Come me.</p>
+    </div>
+
+    <div class="footer">
+        <div class="quote">
+            "La peggiore delle condivisioni è meglio della migliore delle segretezze"
+        </div>
+        <div class="quote-attribution">— me lo sono appena inventato, ma ci credo</div>
+
+        <div class="footer-links">
+            <a href="https://www.linkedin.com/in/andrea-rovarotti" target="_blank">LinkedIn</a>
+            <a href="mailto:arovarotti@gmail.com">Email</a>
+            <a href="https://github.com/potasovvi" target="_blank">GitHub</a>
+        </div>
+
+        <div class="copyright">
+            © 2026 <a href="https://github.com/potasovvi" target="_blank" style="color:inherit; text-decoration:none;">potasovvi</a> · Grazie per essere passato/a
+        </div>
+    </div>
+
+</div>
+
 </body>
 </html>
