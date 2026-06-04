@@ -2,7 +2,7 @@
 
 Mi chiamo Andrea, ma su GitHub mi trovi come **potasovvi**.
 
-Sono un utente curioso, uno di quelli che non si accontenta mai del "perché sì" e deve smontare tutto per capire come funziona. Il mondo tech mi appassiona da sempre, ma ultimamente sono in fissa con l'**AI** — ci passo ore, la testó, la rompo, e ogni volta scopro qualcosa di nuovo.
+Sono un utente curioso, uno di quelli che non si accontenta mai del "perché sì" e deve smontare tutto per capire come funziona. Il mondo tech mi appassiona da sempre, ma ultimamente sono in fissa con l'**AI** — ci passo ore, la testo, la rompo, e ogni volta scopro qualcosa di nuovo.
 
 ## Perché questo GitHub?
 
@@ -28,6 +28,6 @@ Se sei passato/a per caso, benvenuto/a. Se hai suggerimenti, critiche o semplice
 
 ---
 
-*"Prima impara, e poi si vedrà"* — Merlino, "La spada nella roccia"
+*"Prima impara, e poi chissà"* — Merlino, "La spada nella roccia"
 
 **Grazie per essere passato/a.**
