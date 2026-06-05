@@ -301,6 +301,67 @@
             }
         }
 
+        /* === SCROLL ARROWS === */
+        .scroll-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text-muted);
+            font-size: 1.8rem;
+            line-height: 1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            user-select: none;
+            -webkit-user-select: none;
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .scroll-arrow--left {
+            left: -22px;
+        }
+
+        .scroll-arrow--right {
+            right: -22px;
+        }
+
+        @media (hover: hover) {
+            .scroll-arrow:hover {
+                border-color: var(--primary);
+                color: var(--primary);
+                background: rgba(251, 146, 60, 0.1);
+                transform: translateY(-50%) scale(1.1);
+            }
+        }
+
+        .scroll-arrow:active {
+            transform: translateY(-50%) scale(0.95);
+        }
+
+        .scroll-arrow:focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        .scroll-arrow[hidden] {
+            display: none;
+        }
+
+        @media (max-width: 767px) {
+            .scroll-arrow {
+                display: none;
+            }
+        }
+
         .project {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -649,6 +710,8 @@
     <div class="section-title">Progetti</div>
 
     <div class="projects-scroll-wrap">
+        <button class="scroll-arrow scroll-arrow--left" aria-label="Scorri progetti a sinistra">‹</button>
+        <button class="scroll-arrow scroll-arrow--right" aria-label="Scorri progetti a destra">›</button>
         <div class="projects-scroll">
 
             <div class="project">
@@ -739,6 +802,34 @@
     </div>
 
 </div>
+
+<script>
+(function () {
+    var wrap = document.querySelector('.projects-scroll-wrap');
+    var scrollEl = wrap.querySelector('.projects-scroll');
+    var leftBtn = wrap.querySelector('.scroll-arrow--left');
+    var rightBtn = wrap.querySelector('.scroll-arrow--right');
+
+    function updateArrows() {
+        var atStart = scrollEl.scrollLeft <= 4;
+        var atEnd = scrollEl.scrollLeft + scrollEl.clientWidth >= scrollEl.scrollWidth - 4;
+        leftBtn.hidden = atStart;
+        rightBtn.hidden = atEnd;
+    }
+
+    function scrollByCard(dir) {
+        var card = scrollEl.querySelector('.project');
+        var amount = card ? card.offsetWidth + 18 : 320;
+        scrollEl.scrollBy({ left: amount * dir, behavior: 'smooth' });
+    }
+
+    leftBtn.addEventListener('click', function () { scrollByCard(-1); });
+    rightBtn.addEventListener('click', function () { scrollByCard(1); });
+    scrollEl.addEventListener('scroll', updateArrows);
+    window.addEventListener('resize', updateArrows);
+    updateArrows();
+})();
+</script>
 
 </body>
 </html>
