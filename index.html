@@ -606,16 +606,22 @@
             color: var(--text-muted);
             text-decoration: none;
             font-size: 0.9rem;
-            padding: 0.6rem 1.4rem;
+            padding: 0.6rem;
             min-height: 44px;
+            min-width: 44px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             border: 1px solid var(--border);
             border-radius: 10px;
             transition: all 0.3s ease;
-            font-weight: 500;
-            min-width: 120px;
+        }
+
+        .footer-links a svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
+            transition: transform 0.3s ease;
         }
 
         @media (hover: hover) {
@@ -625,6 +631,9 @@
                 background: var(--warm-glow);
                 transform: translateY(-2px);
                 box-shadow: 0 4px 20px rgba(251, 146, 60, 0.15);
+            }
+            .footer-links a:hover svg {
+                transform: scale(1.15);
             }
         }
 
@@ -715,55 +724,61 @@
         <div class="projects-scroll">
 
             <div class="project">
-                <div class="tags">React / TypeScript / Vite / PostgreSQL / Scraping</div>
+                <div class="tags">React / Express / Vite / PostgreSQL / Tailwind CSS 4 / Scraping</div>
                 <div class="made-with">🧑‍💻 Fatto con OpenCode · Piano OpenCodeZen</div>
                 <h3><a href="https://carbur-up.vercel.app/" target="_blank">CarburUP</a></h3>
                 <div class="description">
-                    Monitoraggio prezzi carburanti nella provincia di Torino. Copiato
-                    <strong>di proposito</strong> da <a href="https://benzup.netlify.app/" target="_blank" style="color:var(--accent); text-decoration:underline;">BenzUP</a>
+                    Monitoraggio prezzi carburanti nella provincia di Torino, con dati dall'<strong>Open Data MIMIT</strong>
+                    aggiornati ogni giorno. Copiato <strong>di proposito</strong> da
+                    <a href="https://benzup.netlify.app/" target="_blank" style="color:var(--accent); text-decoration:underline;">BenzUP</a>
                     per dimostrare la tesi dell'autore Dario Ferrero secondo cui con l'AI si può fare lo stesso,
-                    con un pò di pazienza e un minimo di apprendimento richiesto.
+                    con un po' di pazienza e un minimo di apprendimento richiesto.
                 </div>
                 <ul class="features">
-                    <li>Scraping giornaliero con GitHub Actions</li>
-                    <li>API REST con Express e repository pattern</li>
-                    <li>Classifica prezzi aggiornata giornalmente</li>
+                    <li>Scraping giornaliero automatico con GitHub Actions</li>
+                    <li>API REST con Express, repository pattern e Neon PostgreSQL</li>
+                    <li>Classifica prezzi aggiornata ogni giorno</li>
                     <li>Sistema di segnalazioni per gli utenti</li>
                 </ul>
                 <a href="https://carbur-up.vercel.app/" target="_blank" class="demo-link">Apri progetto →</a>
             </div>
 
             <div class="project">
-                <div class="tags">React / Node.js / AI / API</div>
-                <div class="made-with">🤖 Fatto con Google AI Studio</div>
-                <h3><a href="https://pdf-fast-steel.vercel.app/" target="_blank">Smart PDF Organizer</a></h3>
+                <div class="tags">Next.js / TypeScript / Google Drive API / IMAP</div>
+                <div class="made-with">⚙️ Fatto con Next.js</div>
+                <h3><a href="https://pdf-fast-steel.vercel.app/" target="_blank">PDFast</a></h3>
                 <div class="description">
-                    Un'app che intercetta email, converte il contenuto in PDF, estrae allegati
-                    e organizza tutto in cartelle mensili. Con esportazione locale o su Google Drive.<br>
-                    Realizzato per la mamma di un mio amico. Unico limite: avere account Google e farsi aggiungere
-                    manualmente tra gli utenti di test.
+                    Automatizza la conversione di email in PDF, estrae gli allegati PDF e li
+                    organizza in cartelle mensili. Con esportazione locale (.zip) o caricamento
+                    su Google Drive.<br>
+                    Realizzato per la mamma di un mio amico. Unico limite: avere account Google
+                    e farsi aggiungere manualmente tra gli utenti di test.
                 </div>
                 <ul class="features">
-                    <li>Integrazione con API di posta e cloud storage</li>
-                    <li>Elaborazione mail per destinatario</li>
-                    <li>Smistamento automatico in cartelle cronologiche</li>
+                    <li>Conversione automatica email → PDF</li>
+                    <li>Estrazione allegati PDF dalle email</li>
+                    <li>Smistamento cronologico in cartelle mensili</li>
+                    <li>Esportazione locale (.zip) o su Google Drive</li>
                 </ul>
                 <a href="https://pdf-fast-steel.vercel.app/" target="_blank" class="demo-link">Apri progetto →</a>
             </div>
 
             <div class="project">
-                <div class="tags">React / Custom Hooks / Performance</div>
+                <div class="tags">React 19 / Vite 8 / Tailwind CSS 4 / Web Audio API</div>
                 <div class="made-with">✨ Fatto con Gemini</div>
-                <h3><a href="https://workout-timer-plum.vercel.app/" target="_blank">Advanced Workout Timer</a></h3>
+                <h3><a href="https://workout-timer-plum.vercel.app/" target="_blank">Workout Timer</a></h3>
                 <div class="description">
-                    Un timer da allenamento costruito per eseguire esercizi da 2 minuti
-                    per la schiena. <br>
-                    Utilissima per me.
+                    App per gestire intervalli di recupero e sessioni di allenamento. Nata
+                    per il five-a-side (rotazione portiere) e per esercizi a intervalli
+                    per la schiena.
                 </div>
                 <ul class="features">
-                    <li>Gestione efficiente di timer e intervalli complessi</li>
-                    <li>Design ottimizzato per smartphone</li>
-                    <li>Minimizzazione dei re-render per risparmiare batteria</li>
+                    <li>Timer selezionabile (2, 5, 10 min o custom)</li>
+                    <li>Indicatore circolare SVG animato</li>
+                    <li>Avviso audio via Web Audio API</li>
+                    <li>Screen Wake Lock (schermo sempre acceso)</li>
+                    <li>Contatore round automatico</li>
+                    <li>Tema scuro e design responsive</li>
                 </ul>
                 <a href="https://workout-timer-plum.vercel.app/" target="_blank" class="demo-link">Apri progetto →</a>
             </div>
@@ -788,12 +803,21 @@
         <div class="quote">
             "Prima impara, e poi chissà"
         </div>
-        <div class="quote-attribution">— Merlino, da "La spada nella roccia"</div>
+        <div class="quote-attribution">Merlino, da "La spada nella roccia"</div>
 
         <div class="footer-links">
-            <a href="https://www.linkedin.com/in/andrea-rovarotti" target="_blank">LinkedIn</a>
-            <a href="mailto:arovarotti@gmail.com">Email</a>
-            <a href="https://github.com/potasovvi" target="_blank">GitHub</a>
+            <a href="https://www.linkedin.com/in/andrea-rovarotti" target="_blank" aria-label="LinkedIn" title="Linkedin">
+                <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452z"/></svg>
+            </a>
+            <a href="mailto:arovarotti@gmail.com" aria-label="Gmail" title="Mail">
+                <svg viewBox="0 0 24 24"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.91 12 9.548l6.545-4.637 1.528-1.418C21.691 2.28 24 3.434 24 5.457z"/></svg>
+            </a>
+            <a href="https://github.com/potasovvi" target="_blank" aria-label="GitHub" title="Github">
+                <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+            </a>
+            <a href="https://substack.com/@andrearovarotti" target="_blank" aria-label="Substack" title="Substack">
+                <svg viewBox="0 0 24 24"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/></svg>
+            </a>
         </div>
 
         <div class="copyright">
